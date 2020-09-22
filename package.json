@@ -12,16 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
-    "download": "^8.0.0",
     "fluent-ffmpeg": "^2.1.2",
-    "get-audio-duration": "^2.0.3",
-    "music-metadata": "^7.0.2",
-    "music-metadata-browser": "^2.1.2",
-<<<<<<< HEAD
     "subsrt": "^1.1.1",
-=======
->>>>>>> b932be66e15f67d3d028521f73edcc9b14b4fe13
-    "text-to-image": "^2.3.0",
     "twit": "^2.2.11"
   }
 }

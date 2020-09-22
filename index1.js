@@ -8,7 +8,7 @@ var Twit = require('twit');
 let no_ayah = 1;
 let surah_no = 1;
 
-let config = require('./config')
+// let config = require('./config')
 let T = new Twit({
   access_token: process.env.ACCESS_TOKEN, //|| config.access_token,
   access_token_secret: process.env.ACCESS_TOKEN_SECRET, //|| config.access_token_secret,
@@ -36,34 +36,6 @@ function parseNum(num) {
     return `${num}`;
   }
 }
-function makesrt(rec_Url, text) {
-  var fs = require('fs');
-  var subsrt = require('subsrt');
-  ffmpeg.ffprobe(rec_Url, function (err, metadata) {
-    if (err) console.log(err);
-
-    // console.dir(metadata); // all metadata
-    // console.log(metadata.format.duration);
-    //Sample captions
-    var captions = [
-      {
-        "start": 0, //Time to show caption in milliseconds
-        "end": metadata.format.duration * 1000, //Time to hide caption in milliseconds
-        "text": text //Plain text content
-      }
-    ];
-
-    //Build the WebVTT content
-    var options = { format: 'srt' };
-    var content = subsrt.build(captions, options);
-
-    //Write content to .srt file
-    fs.writeFileSync('generated.srt', content);
-  })
-
-
-
-}
 
 
 
@@ -73,60 +45,54 @@ function gen() {
   no_reciter = randomint(0, reciter.length - 1)
   rec_Url = `${reciter[no_reciter].audio_url_bit_rate_64}${parseNum(surah_no)}${parseNum(no_ayah)}.mp3`
   console.log(rec_Url);
-  let enText = "";
+
   axios.get(`http://api.alquran.cloud/v1/ayah/${surah_no}:${no_ayah}/editions/en.sahih,ar.alafasy`)
     .then((response) => {
-      // console.log(response.data.data);
+      console.log(response.data.data);
       return response.data.data
     })
     .then((data) => {
+      let enText = data[0].text;
       let arText = data[1].text;
       let audUrl = data[1].audio;
-      enText = data[0].text;
-      // makesrt(rec_Url, enText);
-
-      // console.log({ enText, arText, rec_Url });
+      console.log({ enText, arText, rec_Url });
 
       return { enText, arText }
 
 
     })
-    .then(() => {
-      var textObj = { enText };
-      // var textObj = { enText: 'However, what if you want to \n loop through the cars and fi\n loop through the cars and fi' };
-      console.log("aa ", textObj)
-      var mergedVideo = ffmpeg();
+    .then((textObj) => {
+      //${textObj.arText} \n\n
 
-      mergedVideo
-        // .input('./video.mp4')
-        .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
-        .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
-        .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
-        .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
-        .outputOptions('-c:v libx264')
-        .outputOptions('-pix_fmt yuv420p')
-        .outputOptions('-f mp4')
-        .on('error', function (err) {
-          console.log('Error merger ' + err.message);
-          // setTimeout(() => {
-          //   gen();
-          // }, 6000);
-        })
-        .on('end', () => {
+      textToImage.generate(`\n${textObj.enText}\n\nQuran ${surah_no}:${no_ayah}\nReciter: ${parseName(rec_Url)}\n\nDailyAyahBot`, {
+        fontFamily: 'Comic Sans',
+        margin: 10,
+        maxWidth: 720,
+        textAlign: "center",
+        fontSize: 22,
+        // bgColor: "black",
+        // textColor: "white"
+      }).then(function (base64Image) {
+        base64Image = base64Image.split(';base64,').pop();
+        fs.writeFile('./images/image.png', base64Image, { encoding: 'base64' }, function (err) {
+          console.log('File created');
+        });
+      }).then(() => {
+        // From a local path...
+        ffmpeg.ffprobe(rec_Url, function (err, metadata) {
+          if (err) console.log(err);
 
-          console.log('Finished! text = ', textObj);
-          let a = textObj.enText;
-          var proc = ffmpeg('./mergedVideo11.mp4')
-            // .input('./002255 (1).mp3')
+          // console.dir(metadata); // all metadata
+          console.log(metadata.format.duration);
+          var proc = ffmpeg('./images/image.png')
+            .loop(metadata.format.duration)
             .input(rec_Url)
-            .outputOptions([
-              "-vf subtitles=./generated.srt:force_style='Alignment=10'",
-              '-map 0:v',
-              '-map 1:a',
-              '-shortest',
-            ])
+            .outputOptions('-c:v libx264')
+            .outputOptions('-pix_fmt yuv420p')
+            .outputOptions('-f mp4')
+            // setup event handlers
             .on('end', function () {
-              console.log('file has been converted finally succesfully');
+              console.log('file has been converted succesfully');
               console.log("done...");
 
               var filePath = './newpost.mp4'
@@ -169,21 +135,22 @@ function gen() {
               console.log('an error happened: ' + err.message);
             })
             // save to file
-            .save('./newpost.mp4');
+            .save('./newpost.mp4', () => {
+
+            })
 
         })
-        .mergeToFile('./mergedVideo11.mp4');
-      // .save('mergedVideo11.mp4')
+
+      });
+
 
     })
-
     .catch((err) => {
-      console.log("err axios");
+      console.log(err);
       setTimeout(() => {
         gen();
       }, 6000);
     })
-
 
 }
 
