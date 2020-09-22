@@ -7,7 +7,6 @@ var Twit = require('twit');
 let no_ayah = 1;
 let surah_no = 1;
 
-let config = require('./config')
 let T = new Twit({
   access_token: process.env.ACCESS_TOKEN, //|| config.access_token,
   access_token_secret: process.env.ACCESS_TOKEN_SECRET, //|| config.access_token_secret,
