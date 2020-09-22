@@ -81,7 +81,7 @@ function gen() {
       let arText = data[1].text;
       let audUrl = data[1].audio;
       enText = data[0].text;
-      // makesrt(rec_Url, enText);
+      makesrt(rec_Url, enText);
 
       // console.log({ enText, arText, rec_Url });
 
@@ -100,15 +100,15 @@ function gen() {
         .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
         .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
         .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
-        .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
+        // .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
         .outputOptions('-c:v libx264')
         .outputOptions('-pix_fmt yuv420p')
         .outputOptions('-f mp4')
         .on('error', function (err) {
           console.log('Error merger ' + err.message);
-          // setTimeout(() => {
-          //   gen();
-          // }, 6000);
+          setTimeout(() => {
+            gen();
+          }, 6000);
         })
         .on('end', () => {
 
