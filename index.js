@@ -1,5 +1,4 @@
 let fs = require('fs');
-let textToImage = require('text-to-image');
 let axios = require('axios');
 let surah = require('./surah.json');
 let reciter = require('./recite');
