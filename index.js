@@ -95,14 +95,13 @@ function gen() {
       // var textObj = { enText: 'However, what if you want to \n loop through the cars and fi\n loop through the cars and fi' };
       console.log("aa ", textObj)
       var mergedVideo = ffmpeg();
-
+      let vid = video[randomint(0, video.length - 1)];
+      console.log(vid);
       mergedVideo
         // .input('./video.mp4')
-        // .mergeAdd(video[1])
-        // .mergeAdd(video[2])
-        .mergeAdd(video[randomint(0, video.length - 1)])
-        .mergeAdd(video[randomint(0, video.length - 1)])
-        .mergeAdd(video[randomint(0, video.length - 1)])
+        .mergeAdd(vid)
+        .mergeAdd(vid)
+        .mergeAdd(vid)
         // .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
         .outputOptions('-c:v libx264')
         .outputOptions('-pix_fmt yuv420p')
