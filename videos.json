@@ -1,0 +1,11 @@
+{
+  "links": [
+    "https://vod-progressive.akamaized.net/exp=1601015811~acl=%2A%2F69851485.mp4%2A~hmac=f306dbc23ebbfd515aed6b94b51a45f10a23286897e664bd3c45ace8cc964c98/vimeo-prod-skyfire-std-us/01/1190/1/30951664/69851485.mp4",
+    "https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761",
+    "https://player.vimeo.com/external/328428416.sd.mp4?s=39df9f60fdeaeff0f4e3fbf3c1213d395792fc43&profile_id=165&oauth2_token_id=57447761",
+    "https://player.vimeo.com/external/328428416.sd.mp4?s=39df9f60fdeaeff0f4e3fbf3c1213d395792fc43&profile_id=165&oauth2_token_id=57447761",
+    "https://player.vimeo.com/external/328427476.hd.mp4?s=ddd13e964fd6c13d9b61cc52513a545533ad1c02&profile_id=170&oauth2_token_id=57447761",
+    "https://player.vimeo.com/external/368377138.hd.mp4?s=4806f4fb6d4293375a24f15ed244c7b0b2913915&profile_id=175&oauth2_token_id=57447761",
+    "https://player.vimeo.com/external/369532852.hd.mp4?s=da6623aa80aa3aff5e2061950da985bf24f78cd5&profile_id=175&oauth2_token_id=57447761"
+  ]
+}

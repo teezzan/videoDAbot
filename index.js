@@ -6,6 +6,7 @@ let ffmpeg = require('fluent-ffmpeg');
 var Twit = require('twit');
 let no_ayah = 1;
 let surah_no = 1;
+let video = require('./videos.json').links;
 
 let T = new Twit({
   access_token: process.env.ACCESS_TOKEN, //|| config.access_token,
@@ -97,9 +98,9 @@ function gen() {
 
       mergedVideo
         // .input('./video.mp4')
-        .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
-        .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
-        .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
+        .mergeAdd(video[randomint(0, video.length - 1)])
+        .mergeAdd(video[randomint(0, video.length - 1)])
+        .mergeAdd(video[randomint(0, video.length - 1)])
         // .mergeAdd('https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=164&oauth2_token_id=57447761')
         .outputOptions('-c:v libx264')
         .outputOptions('-pix_fmt yuv420p')
@@ -165,6 +166,9 @@ function gen() {
             })
             .on('error', function (err) {
               console.log('an error happened: ' + err.message);
+              setTimeout(() => {
+                gen();
+              }, 6000);
             })
             // save to file
             .save('./newpost.mp4');
