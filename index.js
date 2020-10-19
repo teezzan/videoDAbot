@@ -68,7 +68,7 @@ function makesrt(rec_Url, text) {
 
 function gen() {
   surah_no =2; //randomint(1, 114);
-  no_ayah =32; //randomint(2, surah[surah_no - 1].count);
+  no_ayah =33; //randomint(2, surah[surah_no - 1].count);
   no_reciter = 35;//randomint(0, reciter.length - 1)
   rec_Url = `${reciter[no_reciter].audio_url_bit_rate_64}${parseNum(surah_no)}${parseNum(no_ayah)}.mp3`
   console.log(rec_Url);
