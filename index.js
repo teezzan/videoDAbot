@@ -35,7 +35,7 @@ function parseNum(num) {
     return `${num}`;
   }
 }
-function makesrt(rec_Url, text) {
+function makesrt(rec_Url, text, surah_no, no_ayah) {
   var fs = require('fs');
   var subsrt = require('subsrt');
   ffmpeg.ffprobe(rec_Url, function (err, metadata) {
@@ -48,7 +48,7 @@ function makesrt(rec_Url, text) {
       {
         "start": 0, //Time to show caption in milliseconds
         "end": (metadata.format.duration + 0.2) * 1000, //Time to hide caption in milliseconds
-        "text": text //Plain text content
+        "text": `${text} \n\n Quran ${surah_no}:${no_ayah}` //Plain text content
       }
     ];
 
@@ -67,8 +67,8 @@ function makesrt(rec_Url, text) {
 
 
 function gen() {
-  surah_no =2; //randomint(1, 114);
-  no_ayah =33; //randomint(2, surah[surah_no - 1].count);
+  surah_no =55; //randomint(1, 114);
+  no_ayah =56; //randomint(2, surah[surah_no - 1].count);
   no_reciter = 35;//randomint(0, reciter.length - 1)
   rec_Url = `${reciter[no_reciter].audio_url_bit_rate_64}${parseNum(surah_no)}${parseNum(no_ayah)}.mp3`
   console.log(rec_Url);
@@ -82,7 +82,7 @@ function gen() {
       let arText = data[1].text;
       let audUrl = data[1].audio;
       enText = data[0].text;
-      makesrt(rec_Url, enText);
+      makesrt(rec_Url, enText,surah_no, no_ayah);
 
       // console.log({ enText, arText, rec_Url });
 
