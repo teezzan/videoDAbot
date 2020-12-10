@@ -15,7 +15,7 @@ const options = {
   }
 };
 
-const url = process.env.APP_URL || 'https://quranvidbot.herokuapp.com:443';
+const url = process.env.APP_URL || 'https://quranvideogen.herokuapp.com:443';
 
 const bot = new TelegramBot(TOKEN, options);
 bot.setWebHook(`${url}/bot${TOKEN}`);
@@ -167,4 +167,9 @@ bot.onText(/\/gen/, (msg) => {
   let no_ayah = randomint(2, surah[surah_no - 1].count);
   let no_reciter = 35;//randomint(0, reciter.length - 1)
   gen(surah_no, no_ayah, no_reciter, video = "", msg.chat.id);
+});
+
+bot.onText(/\/greet/, (msg) => {
+  bot.sendMessage(msg.chat.id, `Hello ${msg.from.first_name}.`);
+
 });
