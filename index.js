@@ -161,6 +161,11 @@ function gen(surah_no = 55, no_ayah = 56, no_reciter = 35, video_url = "", chatI
 }
 
 
+// Just to ping!
+bot.on('message', function onMessage(msg) {
+  bot.sendMessage(msg.chat.id, 'I am alive on Heroku!');
+});
+
 bot.onText(/\/gen/, (msg) => {
   bot.sendMessage(msg.chat.id, `Dear ${msg.from.first_name}, Processing Your Request `);
   let surah_no = randomint(1, 114);
