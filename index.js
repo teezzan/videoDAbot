@@ -161,7 +161,7 @@ function gen(surah_no = 55, no_ayah = 56, no_reciter = 35, video_url = "", chatI
 }
 
 
-bot.onText(/\/gen/, (msg) => {
+bot.onText(/\/random/, (msg) => {
   bot.sendMessage(msg.chat.id, `Dear ${msg.from.first_name}, Processing Your Request `);
   let surah_no = randomint(1, 114);
   let no_ayah = randomint(2, surah[surah_no - 1].count);
@@ -173,3 +173,9 @@ bot.onText(/\/greet/, (msg) => {
   bot.sendMessage(msg.chat.id, `Hello ${msg.from.first_name}.`);
 
 });
+
+bot.onText(/\/start/, (msg) => {
+  bot.sendMessage(msg.chat.id, `Send \random to generate a random Quran Ayah video`);
+
+});
+
