@@ -13,7 +13,9 @@
   "dependencies": {
     "axios": "^0.19.2",
     "fluent-ffmpeg": "^2.1.2",
+    "node-telegram-bot-api": "^0.50.0",
     "subsrt": "^1.1.1",
-    "twit": "^2.2.11"
+    "twit": "^2.2.11",
+    "twitter-api-client": "^1.2.0"
   }
 }
