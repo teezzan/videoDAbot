@@ -15,7 +15,7 @@ const options = {
   }
 };
 
-const url = process.env.APP_URL || 'https://quranvideogen.herokuapp.com:443';
+const url = process.env.APP_URL || 'https://quranvidbot.herokuapp.com:443';
 
 const bot = new TelegramBot(TOKEN, options);
 bot.setWebHook(`${url}/bot${TOKEN}`);
